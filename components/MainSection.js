@@ -16,8 +16,7 @@ const PAGE_FILTERS = {
 class MainSection extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { filter: SHOW_ALL };
-    this.props.actions.loadRandomPages();
+    this.state = { filter: SHOW_NOT_BOOKMARKED };
   }
 
   handleClearBookmarked() {
@@ -31,25 +30,14 @@ class MainSection extends Component {
     this.setState({ filter });
   }
 
-  renderToggleAll(bookmarkedCount) {
-    const { pages, actions } = this.props;
-    if (pages.length > 0) {
-      return (
-        <input
-          className="toggle-all"
-          type="checkbox"
-          checked={bookmarkedCount === pages.length}
-          onChange={actions.bookmarkAll}
-          title="Bookmark All"
-        />
-      );
-    }
-  }
-
   renderFooter(bookmarkedCount) {
     const { pages } = this.props;
     const { filter } = this.state;
     const notBookmarkedCount = pages.length - bookmarkedCount;
+
+    if (notBookmarkedCount === 0) {
+      this.props.actions.loadRandomPages();
+    }
 
     if (pages.length) {
       return (
@@ -76,7 +64,6 @@ class MainSection extends Component {
 
     return (
       <section className="main">
-        {this.renderToggleAll(bookmarkedCount)}
         <ul className="page-list">
           {filteredTodos.map(page =>
             <WikiPage

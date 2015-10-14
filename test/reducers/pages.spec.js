@@ -13,65 +13,6 @@ describe('pages reducer', () => {
     }]);
   });
 
-  it('should handle ADD_PAGE', () => {
-    expect(
-      pages([], {
-        type: types.ADD_PAGE,
-        text: 'Run the tests'
-      })
-    ).toEqual([{
-      text: 'Run the tests',
-      bookmarked: false,
-      id: 0
-    }]);
-
-    expect(
-      pages([{
-        text: 'Sample page',
-        bookmarked: false,
-        id: 0
-      }], {
-        type: types.ADD_PAGE,
-        text: 'Run the tests'
-      })
-    ).toEqual([{
-      text: 'Run the tests',
-      bookmarked: false,
-      id: 1
-    }, {
-      text: 'Sample page',
-      bookmarked: false,
-      id: 0
-    }]);
-
-    expect(
-      pages([{
-        text: 'Run the tests',
-        bookmarked: false,
-        id: 1
-      }, {
-        text: 'Sample page',
-        bookmarked: false,
-        id: 0
-      }], {
-        type: types.ADD_PAGE,
-        text: 'Fix the tests'
-      })
-    ).toEqual([{
-      text: 'Fix the tests',
-      bookmarked: false,
-      id: 2
-    }, {
-      text: 'Run the tests',
-      bookmarked: false,
-      id: 1
-    }, {
-      text: 'Sample page',
-      bookmarked: false,
-      id: 0
-    }]);
-  });
-
   it('should handle DELETE_PAGE', () => {
     expect(
       pages([{
@@ -87,32 +28,6 @@ describe('pages reducer', () => {
         id: 1
       })
     ).toEqual([{
-      text: 'Sample page',
-      bookmarked: false,
-      id: 0
-    }]);
-  });
-
-  it('should handle EDIT_PAGE', () => {
-    expect(
-      pages([{
-        text: 'Run the tests',
-        bookmarked: false,
-        id: 1
-      }, {
-        text: 'Sample page',
-        bookmarked: false,
-        id: 0
-      }], {
-        type: types.EDIT_PAGE,
-        text: 'Fix the tests',
-        id: 1
-      })
-    ).toEqual([{
-      text: 'Fix the tests',
-      bookmarked: false,
-      id: 1
-    }, {
       text: 'Sample page',
       bookmarked: false,
       id: 0

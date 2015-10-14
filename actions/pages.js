@@ -27,25 +27,10 @@ export function loadRandomPages() {
   }
 }
 
-export function addPage(text) {
-  return {
-    type: types.ADD_PAGE,
-    text
-  };
-}
-
 export function deletePage(id) {
   return {
     type: types.DELETE_PAGE,
     id
-  };
-}
-
-export function editPage(id, text) {
-  return {
-    type: types.EDIT_PAGE,
-    id,
-    text
   };
 }
 

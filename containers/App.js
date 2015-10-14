@@ -12,7 +12,7 @@ class App extends Component {
 
     return (
       <div>
-        <Header addPage={actions.addPage} />
+        <Header />
         <MainSection pages={pages} actions={actions} />
       </div>
     );

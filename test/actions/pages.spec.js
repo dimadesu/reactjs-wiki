@@ -3,25 +3,10 @@ import * as types from '../../constants/ActionTypes';
 import * as actions from '../../actions/pages';
 
 describe('page actions', () => {
-  it('addPage should create ADD_PAGE action', () => {
-    expect(actions.addPage('Sample page')).toEqual({
-      type: types.ADD_PAGE,
-      text: 'Sample page'
-    });
-  });
-
   it('deletePage should create DELETE_PAGE action', () => {
     expect(actions.deletePage(1)).toEqual({
       type: types.DELETE_PAGE,
       id: 1
-    });
-  });
-
-  it('editPage should create EDIT_PAGE action', () => {
-    expect(actions.editPage(1, 'Sample page everywhere')).toEqual({
-      type: types.EDIT_PAGE,
-      id: 1,
-      text: 'Sample page everywhere'
     });
   });
 

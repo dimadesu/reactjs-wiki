@@ -17,16 +17,7 @@ const initialState = [{
 export default function pages(state = initialState, action) {
   switch (action.type) {
   case LOAD_RANDOM_PAGES:
-    return action.data;
-  case ADD_PAGE:
-    return [{
-      id: state.reduce(
-        (maxId, page) => Math.max(page.id, maxId),
-        -1
-      ) + 1,
-      bookmarked: false,
-      text: action.text
-    }, ...state];
+    return [...action.data, ...state];
 
   case DELETE_PAGE:
     return state.filter(page =>

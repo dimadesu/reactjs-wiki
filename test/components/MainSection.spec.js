@@ -20,7 +20,6 @@ function setup(propOverrides) {
       id: 1
     }],
     actions: {
-      editPage: expect.createSpy(),
       deletePage: expect.createSpy(),
       bookmarkPage: expect.createSpy(),
       emptyBookmarks: expect.createSpy()
