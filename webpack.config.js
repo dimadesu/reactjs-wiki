@@ -9,8 +9,8 @@ module.exports = {
     './index'
   ],
   output: {
-    // The dev server does not write files to disc, all in memory (so output path is not used)
-    path: '/',
+    // The dev server does not write files to disc, all in memory
+    path: path.join(__dirname, 'dist'),
     // These two will form URL to request the bundle
     filename: 'bundle.js',
     publicPath: '/static/'

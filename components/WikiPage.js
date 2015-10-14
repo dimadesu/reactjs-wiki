@@ -29,9 +29,11 @@ class WikiPage extends Component {
     let element;
     if (this.state.editing) {
       element = (
-        <WikiTextInput text={page.text}
-                       editing={this.state.editing}
-                       onSave={(text) => this.handleSave(page.id, text)} />
+        <WikiTextInput
+          text={page.text}
+          editing={this.state.editing}
+          onSave={(text) => this.handleSave(page.id, text)}
+        />
       );
     } else {
       element = (
@@ -40,12 +42,15 @@ class WikiPage extends Component {
             className="toggle"
             type="checkbox"
             checked={page.archived}
-            onChange={() => archivePage(page.id)} />
+            onChange={() => archivePage(page.id)}
+          />
           <label onDoubleClick={this.handleDoubleClick.bind(this)}>
             {page.text}
           </label>
-          <button className="destroy"
-                  onClick={() => deletePage(page.id)} />
+          <button
+            className="destroy"
+            onClick={() => deletePage(page.id)}
+            />
         </div>
       );
     }

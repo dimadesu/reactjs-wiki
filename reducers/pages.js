@@ -1,4 +1,12 @@
-import { ADD_PAGE, DELETE_PAGE, EDIT_PAGE, ARCHIVE_PAGE, ARCHIVE_ALL, EMPTY_ARCHIVE } from '../constants/ActionTypes';
+import {
+  LOAD_RANDOM_PAGES,
+  ADD_PAGE,
+  DELETE_PAGE,
+  EDIT_PAGE,
+  ARCHIVE_PAGE,
+  ARCHIVE_ALL,
+  EMPTY_ARCHIVE
+} from '../constants/ActionTypes';
 
 const initialState = [{
   text: 'Sample page',
@@ -8,6 +16,8 @@ const initialState = [{
 
 export default function pages(state = initialState, action) {
   switch (action.type) {
+  case LOAD_RANDOM_PAGES:
+    return action.data;
   case ADD_PAGE:
     return [{
       id: state.reduce(

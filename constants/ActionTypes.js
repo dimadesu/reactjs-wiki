@@ -1,3 +1,4 @@
+export const LOAD_RANDOM_PAGES = 'LOAD_RANDOM_PAGES';
 export const ADD_PAGE = 'ADD_PAGE';
 export const DELETE_PAGE = 'DELETE_PAGE';
 export const EDIT_PAGE = 'EDIT_PAGE';

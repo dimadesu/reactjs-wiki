@@ -3,12 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
-import * as TodoActions from '../actions/pages';
+import * as PageActions from '../actions/pages';
 
 class App extends Component {
   render() {
     const { pages, dispatch } = this.props;
-    const actions = bindActionCreators(TodoActions, dispatch);
+    const actions = bindActionCreators(PageActions, dispatch);
 
     return (
       <div>

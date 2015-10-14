@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import WikiPage from './WikiPage';
 import Footer from './Footer';
-import { SHOW_ALL, SHOW_ARCHIVED, SHOW_ACTIVE } from '../constants/PageFilters';
+import {
+  SHOW_ALL,
+  SHOW_ARCHIVED,
+  SHOW_ACTIVE
+} from '../constants/PageFilters';
 
 const PAGE_FILTERS = {
   [SHOW_ALL]: () => true,
@@ -13,6 +17,7 @@ class MainSection extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = { filter: SHOW_ALL };
+    this.props.actions.loadRandomPages();
   }
 
   handleClearArchived() {
