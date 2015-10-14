@@ -6,7 +6,7 @@
     "start": "node server.js",
     "test:unix": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register",
     "test:win": "set NODE_ENV=test && mocha --recursive --compilers js:babel-core/register",
-    "test:unix:watch": "npm test:unix -- --watch",
+    "test:unix:watch": "npm run test:unix -- --watch",
     "test:win:watch": "npm run test:win -- --watch"
   },
   "repository": {
