@@ -11,11 +11,11 @@ function setup( editing = false ) {
     page: {
       id: 0,
       text: 'Sample page',
-      archived: false
+      bookmarked: false
     },
     editPage: expect.createSpy(),
     deletePage: expect.createSpy(),
-    archivePage: expect.createSpy()
+    bookmarkPage: expect.createSpy()
   };
 
   const renderer = TestUtils.createRenderer();
@@ -66,11 +66,11 @@ describe('components', () => {
       expect(button.props.className).toBe('destroy');
     });
 
-    it('input onChange should call archivePage', () => {
+    it('input onChange should call bookmarkPage', () => {
       const { output, props } = setup();
       const input = output.props.children.props.children[0];
       input.props.onChange({});
-      expect(props.archivePage).toHaveBeenCalledWith(0);
+      expect(props.bookmarkPage).toHaveBeenCalledWith(0);
     });
 
     it('button onClick should call deletePage', () => {

@@ -1,3 +1,3 @@
 export const SHOW_ALL = 'show_all';
-export const SHOW_ARCHIVED = 'show_archived';
-export const SHOW_ACTIVE = 'show_active';
+export const SHOW_BOOKMARKED = 'show_bookmarked';
+export const SHOW_NOT_BOOKMARKED = 'show_active';

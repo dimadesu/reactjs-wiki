@@ -4,7 +4,7 @@ import React from 'react/addons';
 import MainSection from '../../components/MainSection';
 import WikiPage from '../../components/WikiPage';
 import Footer from '../../components/Footer';
-import { SHOW_ALL, SHOW_ARCHIVED } from '../../constants/PageFilters';
+import { SHOW_ALL, SHOW_BOOKMARKED } from '../../constants/PageFilters';
 
 const { TestUtils } = React.addons;
 
@@ -12,18 +12,18 @@ function setup(propOverrides) {
   const props = Object.assign({
     pages: [{
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }, {
       text: 'Run the tests',
-      archived: true,
+      bookmarked: true,
       id: 1
     }],
     actions: {
       editPage: expect.createSpy(),
       deletePage: expect.createSpy(),
-      archivePage: expect.createSpy(),
-      emptyArchive: expect.createSpy()
+      bookmarkPage: expect.createSpy(),
+      emptyBookmarks: expect.createSpy()
     }
   }, propOverrides);
 
@@ -57,21 +57,21 @@ describe('components', () => {
         expect(toggle.props.checked).toBe(false);
       });
 
-      it('should be checked if all pages archived', () => {
+      it('should be checked if all pages bookmarked', () => {
         const { output } = setup({ pages: [{
           text: 'Sample page',
-          archived: true,
+          bookmarked: true,
           id: 0
         }]});
         const [toggle] = output.props.children;
         expect(toggle.props.checked).toBe(true);
       });
 
-      /*it('should call archiveAll on change', () => {
+      /*it('should call bookmarkAll on change', () => {
         const { output, props } = setup();
         const [toggle] = output.props.children;
         toggle.props.onChange({});
-        expect(props.actions.archiveAll).toHaveBeenCalled();
+        expect(props.actions.bookmarkAll).toHaveBeenCalled();
       });*/
     });
 
@@ -80,36 +80,36 @@ describe('components', () => {
         const { output } = setup();
         const [,, footer] = output.props.children;
         expect(footer.type).toBe(Footer);
-        expect(footer.props.archivedCount).toBe(1);
-        expect(footer.props.activeCount).toBe(1);
+        expect(footer.props.bookmarkedCount).toBe(1);
+        expect(footer.props.notBookmarkedCount).toBe(1);
         expect(footer.props.filter).toBe(SHOW_ALL);
       });
 
       it('onShow should set the filter', () => {
         const { output, renderer } = setup();
         const [,, footer] = output.props.children;
-        footer.props.onShow(SHOW_ARCHIVED);
+        footer.props.onShow(SHOW_BOOKMARKED);
         const updated = renderer.getRenderOutput();
         const [,, updatedFooter] = updated.props.children;
-        expect(updatedFooter.props.filter).toBe(SHOW_ARCHIVED);
+        expect(updatedFooter.props.filter).toBe(SHOW_BOOKMARKED);
       });
 
-      it('onEmptyArchived should call emptyArchive', () => {
+      it('onEmptyBookmarked should call emptyBookmarks', () => {
         const { output, props } = setup();
         const [,, footer] = output.props.children;
-        footer.props.onEmptyArchived();
-        expect(props.actions.emptyArchive).toHaveBeenCalled();
+        footer.props.onEmptyBookmarked();
+        expect(props.actions.emptyBookmarks).toHaveBeenCalled();
       });
 
-      it('onEmptyArchived shouldnt call emptyArchive if no pages archived', () => {
+      it('onEmptyBookmarked shouldnt call emptyBookmarks if no pages bookmarked', () => {
         const { output, props } = setup({ pages: [{
           text: 'Sample page',
-          archived: false,
+          bookmarked: false,
           id: 0
         }]});
         const [,, footer] = output.props.children;
-        footer.props.onEmptyArchived();
-        expect(props.actions.emptyArchive.calls.length).toBe(0);
+        footer.props.onEmptyBookmarked();
+        expect(props.actions.emptyBookmarks.calls.length).toBe(0);
       });
     });
 
@@ -128,7 +128,7 @@ describe('components', () => {
       it('should filter items', () => {
         const { output, renderer, props } = setup();
         const [,, footer] = output.props.children;
-        footer.props.onShow(SHOW_ARCHIVED);
+        footer.props.onShow(SHOW_BOOKMARKED);
         const updated = renderer.getRenderOutput();
         const [, updatedList] = updated.props.children;
         expect(updatedList.props.children.length).toBe(1);

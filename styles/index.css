@@ -26,8 +26,8 @@ body {
 	line-height: 1.4em;
 	background: #f5f5f5;
 	color: #4d4d4d;
-	min-width: 230px;
-	max-width: 550px;
+	min-width: 320px;
+	max-width: 960px;
 	margin: 0 auto;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
@@ -206,7 +206,7 @@ label[for='toggle-all'] {
 	transition: color 0.4s;
 }
 
-.page-list li.archived label {
+.page-list li.bookmarked label {
 	color: #d9d9d9;
 	text-decoration: line-through;
 }
@@ -309,8 +309,8 @@ label[for='toggle-all'] {
 	border-color: rgba(175, 47, 47, 0.2);
 }
 
-.clear-archived,
-html .clear-archived:active {
+.clear-bookmarked,
+html .clear-bookmarked:active {
 	float: right;
 	position: relative;
 	line-height: 20px;
@@ -319,7 +319,7 @@ html .clear-archived:active {
 	position: relative;
 }
 
-.clear-archived:hover {
+.clear-bookmarked:hover {
 	text-decoration: underline;
 }
 

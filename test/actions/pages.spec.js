@@ -25,22 +25,22 @@ describe('page actions', () => {
     });
   });
 
-  it('archivePage should create ARCHIVE_PAGE action', () => {
-    expect(actions.archivePage(1)).toEqual({
-      type: types.ARCHIVE_PAGE,
+  it('bookmarkPage should create BOOKMARK_PAGE action', () => {
+    expect(actions.bookmarkPage(1)).toEqual({
+      type: types.BOOKMARK_PAGE,
       id: 1
     });
   });
 
-  it('archiveAll should create ARCHIVE_ALL action', () => {
-    expect(actions.archiveAll()).toEqual({
-      type: types.ARCHIVE_ALL
+  it('bookmarkAll should create BOOKMARK_ALL action', () => {
+    expect(actions.bookmarkAll()).toEqual({
+      type: types.BOOKMARK_ALL
     });
   });
 
-  it('emptyArchive should create EMPTY_ARCHIVE action', () => {
-    expect(actions.emptyArchive('Sample page')).toEqual({
-      type: types.EMPTY_ARCHIVE
+  it('emptyBookmarks should create EMPTY_BOOKMARKS action', () => {
+    expect(actions.emptyBookmarks('Sample page')).toEqual({
+      type: types.EMPTY_BOOKMARKS
     });
   });
 });

@@ -3,14 +3,14 @@ import {
   ADD_PAGE,
   DELETE_PAGE,
   EDIT_PAGE,
-  ARCHIVE_PAGE,
-  ARCHIVE_ALL,
-  EMPTY_ARCHIVE
+  BOOKMARK_PAGE,
+  BOOKMARK_ALL,
+  EMPTY_BOOKMARKS
 } from '../constants/ActionTypes';
 
 const initialState = [{
   text: 'Sample page',
-  archived: false,
+  bookmarked: false,
   id: 0
 }];
 
@@ -24,7 +24,7 @@ export default function pages(state = initialState, action) {
         (maxId, page) => Math.max(page.id, maxId),
         -1
       ) + 1,
-      archived: false,
+      bookmarked: false,
       text: action.text
     }, ...state];
 
@@ -40,21 +40,21 @@ export default function pages(state = initialState, action) {
         page
     );
 
-  case ARCHIVE_PAGE:
+  case BOOKMARK_PAGE:
     return state.map(page =>
       page.id === action.id ?
-        Object.assign({}, page, { archived: !page.archived }) :
+        Object.assign({}, page, { bookmarked: !page.bookmarked }) :
         page
     );
 
-  case ARCHIVE_ALL:
-    const areAllMarked = state.every(page => page.archived);
+  case BOOKMARK_ALL:
+    const areAllMarked = state.every(page => page.bookmarked);
     return state.map(page => Object.assign({}, page, {
-      archived: !areAllMarked
+      bookmarked: !areAllMarked
     }));
 
-  case EMPTY_ARCHIVE:
-    return state.filter(page => page.archived === false);
+  case EMPTY_BOOKMARKS:
+    return state.filter(page => page.bookmarked === false);
 
   default:
     return state;

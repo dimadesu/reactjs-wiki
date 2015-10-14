@@ -2,16 +2,16 @@ import expect from 'expect';
 import jsdomReact from '../jsdomReact';
 import React from 'react/addons';
 import Footer from '../../components/Footer';
-import { SHOW_ALL, SHOW_ACTIVE } from '../../constants/PageFilters';
+import { SHOW_ALL, SHOW_NOT_BOOKMARKED } from '../../constants/PageFilters';
 
 const { TestUtils } = React.addons;
 
 function setup(propOverrides) {
   const props = Object.assign({
-    archivedCount: 0,
-    activeCount: 0,
+    bookmarkedCount: 0,
+    notBookmarkedCount: 0,
     filter: SHOW_ALL,
-    onEmptyArchived: expect.createSpy(),
+    onEmptyBookmarked: expect.createSpy(),
     onShow: expect.createSpy()
   }, propOverrides);
 
@@ -46,13 +46,13 @@ describe('components', () => {
     });
 
     it('should display active count when 0', () => {
-      const { output } = setup({ activeCount: 0 });
+      const { output } = setup({ notBookmarkedCount: 0 });
       const [count] = output.props.children;
       expect(getTextContent(count)).toBe('No items');
     });
 
     it('should display active count when above 0', () => {
-      const { output } = setup({ activeCount: 1 });
+      const { output } = setup({ notBookmarkedCount: 1 });
       const [count] = output.props.children;
       expect(getTextContent(count)).toBe('1 item');
     });
@@ -69,8 +69,8 @@ describe('components', () => {
         expect(a.props.className).toBe(i === 0 ? 'selected' : '');
         expect(a.props.children).toBe({
           0: 'All',
-          1: 'Active',
-          2: 'Archived'
+          1: 'NotBookmarked',
+          2: 'Bookmarked'
         }[i]);
       });
     });
@@ -80,27 +80,27 @@ describe('components', () => {
       const [, filters] = output.props.children;
       const filterLink = filters.props.children[1].props.children;
       filterLink.props.onClick({});
-      expect(props.onShow).toHaveBeenCalledWith(SHOW_ACTIVE);
+      expect(props.onShow).toHaveBeenCalledWith(SHOW_NOT_BOOKMARKED);
     });
 
-    it('shouldnt show clear button when no archived pages', () => {
-      const { output } = setup({ archivedCount: 0 });
+    it('shouldnt show clear button when no bookmarked pages', () => {
+      const { output } = setup({ bookmarkedCount: 0 });
       const [,, clear] = output.props.children;
       expect(clear).toBe(undefined);
     });
 
-    it('should render clear button when archived pages', () => {
-      const { output } = setup({ archivedCount: 1 });
+    it('should render clear button when bookmarked pages', () => {
+      const { output } = setup({ bookmarkedCount: 1 });
       const [,, clear] = output.props.children;
       expect(clear.type).toBe('button');
-      expect(clear.props.children).toBe('Clear archived');
+      expect(clear.props.children).toBe('Delete all bookmarks');
     });
 
-    it('should call onEmptyArchived on archive button click', () => {
-      const { output, props } = setup({ archivedCount: 1 });
+    it('should call onEmptyBookmarked on archive button click', () => {
+      const { output, props } = setup({ bookmarkedCount: 1 });
       const [,, clear] = output.props.children;
       clear.props.onClick({});
-      expect(props.onEmptyArchived).toHaveBeenCalled();
+      expect(props.onEmptyBookmarked).toHaveBeenCalled();
     });
   });
 });

@@ -18,7 +18,7 @@ export function loadRandomPages() {
         const result = resp.body.query.random.map((item, index) => {
           return {
             text: item.title,
-            archived: false,
+            bookmarked: false,
             id: item.id
           };
         });
@@ -49,21 +49,21 @@ export function editPage(id, text) {
   };
 }
 
-export function archivePage(id) {
+export function bookmarkPage(id) {
   return {
-    type: types.ARCHIVE_PAGE,
+    type: types.BOOKMARK_PAGE,
     id
   };
 }
 
-export function archiveAll() {
+export function bookmarkAll() {
   return {
-    type: types.ARCHIVE_ALL
+    type: types.BOOKMARK_ALL
   };
 }
 
-export function emptyArchive() {
+export function emptyBookmarks() {
   return {
-    type: types.EMPTY_ARCHIVE
+    type: types.EMPTY_BOOKMARKS
   };
 }

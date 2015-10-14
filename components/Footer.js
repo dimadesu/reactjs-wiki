@@ -5,25 +5,25 @@ import React, {
 import classnames from 'classnames';
 import {
   SHOW_ALL,
-  SHOW_ARCHIVED,
-  SHOW_ACTIVE
+  SHOW_BOOKMARKED,
+  SHOW_NOT_BOOKMARKED
 } from '../constants/PageFilters';
 
 const FILTER_TITLES = {
   [SHOW_ALL]: 'All',
-  [SHOW_ACTIVE]: 'Active',
-  [SHOW_ARCHIVED]: 'Archived'
+  [SHOW_NOT_BOOKMARKED]: 'Not Bookmarked',
+  [SHOW_BOOKMARKED]: 'Bookmarked'
 };
 
 class Footer extends Component {
   renderTodoCount() {
-    const { activeCount } = this.props;
-    const itemWord = activeCount === 1 ? 'item' : 'items';
+    const { notBookmarkedCount } = this.props;
+    const itemWord = notBookmarkedCount === 1 ? 'item' : 'items';
 
     return (
       <span className="page-count">
-        <strong>{activeCount || 'No'} </strong>
-        {itemWord}
+        <strong>{notBookmarkedCount || 'No'} </strong>
+        {itemWord} are bookmarkable
       </span>
     );
   }
@@ -46,15 +46,15 @@ class Footer extends Component {
 
   renderClearButton() {
     const {
-      archivedCount,
-      onEmptyArchived
+      bookmarkedCount,
+      onEmptyBookmarked
     } = this.props;
-    if (archivedCount > 0) {
+    if (bookmarkedCount > 0) {
       return (
         <button
-          className="clear-archived"
-          onClick={onEmptyArchived} >
-          Clear archived
+          className="clear-bookmarked"
+          onClick={onEmptyBookmarked} >
+          Delete all bookmarks
         </button>
       );
     }
@@ -65,7 +65,7 @@ class Footer extends Component {
       <footer className="footer">
         {this.renderTodoCount()}
         <ul className="filters">
-          {[SHOW_ALL, SHOW_ACTIVE, SHOW_ARCHIVED].map(filter =>
+          {[SHOW_ALL, SHOW_NOT_BOOKMARKED, SHOW_BOOKMARKED].map(filter =>
             <li key={filter}>
               {this.renderFilterLink(filter)}
             </li>
@@ -78,10 +78,10 @@ class Footer extends Component {
 }
 
 Footer.propTypes = {
-  archivedCount: PropTypes.number.isRequired,
-  activeCount: PropTypes.number.isRequired,
+  bookmarkedCount: PropTypes.number.isRequired,
+  notBookmarkedCount: PropTypes.number.isRequired,
   filter: PropTypes.string.isRequired,
-  onEmptyArchived: PropTypes.func.isRequired,
+  onEmptyBookmarked: PropTypes.func.isRequired,
   onShow: PropTypes.func.isRequired
 };
 

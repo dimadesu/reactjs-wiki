@@ -3,14 +3,14 @@ import WikiPage from './WikiPage';
 import Footer from './Footer';
 import {
   SHOW_ALL,
-  SHOW_ARCHIVED,
-  SHOW_ACTIVE
+  SHOW_BOOKMARKED,
+  SHOW_NOT_BOOKMARKED
 } from '../constants/PageFilters';
 
 const PAGE_FILTERS = {
   [SHOW_ALL]: () => true,
-  [SHOW_ACTIVE]: page => !page.archived,
-  [SHOW_ARCHIVED]: page => page.archived
+  [SHOW_NOT_BOOKMARKED]: page => !page.bookmarked,
+  [SHOW_BOOKMARKED]: page => page.bookmarked
 };
 
 class MainSection extends Component {
@@ -20,10 +20,10 @@ class MainSection extends Component {
     this.props.actions.loadRandomPages();
   }
 
-  handleClearArchived() {
-    const atLeastOneArchived = this.props.pages.some(page => page.archived);
-    if (atLeastOneArchived) {
-      this.props.actions.emptyArchive();
+  handleClearBookmarked() {
+    const atLeastOneBookmarked = this.props.pages.some(page => page.bookmarked);
+    if (atLeastOneBookmarked) {
+      this.props.actions.emptyBookmarks();
     }
   }
 
@@ -31,32 +31,33 @@ class MainSection extends Component {
     this.setState({ filter });
   }
 
-  renderToggleAll(archivedCount) {
+  renderToggleAll(bookmarkedCount) {
     const { pages, actions } = this.props;
     if (pages.length > 0) {
       return (
         <input
           className="toggle-all"
           type="checkbox"
-          checked={archivedCount === pages.length}
-          onChange={actions.archiveAll}
+          checked={bookmarkedCount === pages.length}
+          onChange={actions.bookmarkAll}
+          title="Bookmark All"
         />
       );
     }
   }
 
-  renderFooter(archivedCount) {
+  renderFooter(bookmarkedCount) {
     const { pages } = this.props;
     const { filter } = this.state;
-    const activeCount = pages.length - archivedCount;
+    const notBookmarkedCount = pages.length - bookmarkedCount;
 
     if (pages.length) {
       return (
         <Footer
-          archivedCount={archivedCount}
-          activeCount={activeCount}
+          bookmarkedCount={bookmarkedCount}
+          notBookmarkedCount={notBookmarkedCount}
           filter={filter}
-          onEmptyArchived={this.handleClearArchived.bind(this)}
+          onEmptyBookmarked={this.handleClearBookmarked.bind(this)}
           onShow={this.handleShow.bind(this)}
         />
       );
@@ -68,14 +69,14 @@ class MainSection extends Component {
     const { filter } = this.state;
 
     const filteredTodos = pages.filter(PAGE_FILTERS[filter]);
-    const archivedCount = pages.reduce((count, page) =>
-      page.archived ? count + 1 : count,
+    const bookmarkedCount = pages.reduce((count, page) =>
+      page.bookmarked ? count + 1 : count,
       0
     );
 
     return (
       <section className="main">
-        {this.renderToggleAll(archivedCount)}
+        {this.renderToggleAll(bookmarkedCount)}
         <ul className="page-list">
           {filteredTodos.map(page =>
             <WikiPage
@@ -85,7 +86,7 @@ class MainSection extends Component {
             />
           )}
         </ul>
-        {this.renderFooter(archivedCount)}
+        {this.renderFooter(bookmarkedCount)}
       </section>
     );
   }

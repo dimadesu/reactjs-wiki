@@ -8,7 +8,7 @@ describe('pages reducer', () => {
       pages(undefined, {})
     ).toEqual([{
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
@@ -21,14 +21,14 @@ describe('pages reducer', () => {
       })
     ).toEqual([{
       text: 'Run the tests',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
 
     expect(
       pages([{
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
         type: types.ADD_PAGE,
@@ -36,22 +36,22 @@ describe('pages reducer', () => {
       })
     ).toEqual([{
       text: 'Run the tests',
-      archived: false,
+      bookmarked: false,
       id: 1
     }, {
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
 
     expect(
       pages([{
         text: 'Run the tests',
-        archived: false,
+        bookmarked: false,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
         type: types.ADD_PAGE,
@@ -59,15 +59,15 @@ describe('pages reducer', () => {
       })
     ).toEqual([{
       text: 'Fix the tests',
-      archived: false,
+      bookmarked: false,
       id: 2
     }, {
       text: 'Run the tests',
-      archived: false,
+      bookmarked: false,
       id: 1
     }, {
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
@@ -76,11 +76,11 @@ describe('pages reducer', () => {
     expect(
       pages([{
         text: 'Run the tests',
-        archived: false,
+        bookmarked: false,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
         type: types.DELETE_PAGE,
@@ -88,7 +88,7 @@ describe('pages reducer', () => {
       })
     ).toEqual([{
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
@@ -97,11 +97,11 @@ describe('pages reducer', () => {
     expect(
       pages([{
         text: 'Run the tests',
-        archived: false,
+        bookmarked: false,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
         type: types.EDIT_PAGE,
@@ -110,133 +110,133 @@ describe('pages reducer', () => {
       })
     ).toEqual([{
       text: 'Fix the tests',
-      archived: false,
+      bookmarked: false,
       id: 1
     }, {
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
 
-  it('should handle ARCHIVE_PAGE', () => {
+  it('should handle BOOKMARK_PAGE', () => {
     expect(
       pages([{
         text: 'Run the tests',
-        archived: false,
+        bookmarked: false,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
-        type: types.ARCHIVE_PAGE,
+        type: types.BOOKMARK_PAGE,
         id: 1
       })
     ).toEqual([{
       text: 'Run the tests',
-      archived: true,
+      bookmarked: true,
       id: 1
     }, {
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
 
-  it('should handle ARCHIVE_ALL', () => {
+  it('should handle BOOKMARK_ALL', () => {
     expect(
       pages([{
         text: 'Run the tests',
-        archived: true,
+        bookmarked: true,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
-        type: types.ARCHIVE_ALL
+        type: types.BOOKMARK_ALL
       })
     ).toEqual([{
       text: 'Run the tests',
-      archived: true,
+      bookmarked: true,
       id: 1
     }, {
       text: 'Sample page',
-      archived: true,
+      bookmarked: true,
       id: 0
     }]);
 
-    // Unmark if all pages are currently archived
+    // Unmark if all pages are currently bookmarked
     expect(
       pages([{
         text: 'Run the tests',
-        archived: true,
+        bookmarked: true,
         id: 1
       }, {
         text: 'Sample page',
-        archived: true,
+        bookmarked: true,
         id: 0
       }], {
-        type: types.ARCHIVE_ALL
+        type: types.BOOKMARK_ALL
       })
     ).toEqual([{
       text: 'Run the tests',
-      archived: false,
+      bookmarked: false,
       id: 1
     }, {
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
 
-  it('should handle EMPTY_ARCHIVE', () => {
+  it('should handle EMPTY_BOOKMARKS', () => {
     expect(
       pages([{
         text: 'Run the tests',
-        archived: true,
+        bookmarked: true,
         id: 1
       }, {
         text: 'Sample page',
-        archived: false,
+        bookmarked: false,
         id: 0
       }], {
-        type: types.EMPTY_ARCHIVE
+        type: types.EMPTY_BOOKMARKS
       })
     ).toEqual([{
       text: 'Sample page',
-      archived: false,
+      bookmarked: false,
       id: 0
     }]);
   });
 
-  it('should not generate duplicate ids after EMPTY_ARCHIVE', () => {
+  it('should not generate duplicate ids after EMPTY_BOOKMARKS', () => {
     expect(
       [{
-        type: types.ARCHIVE_PAGE,
+        type: types.BOOKMARK_PAGE,
         id: 0
       }, {
-        type: types.EMPTY_ARCHIVE
+        type: types.EMPTY_BOOKMARKS
       }, {
         type: types.ADD_PAGE,
         text: 'Write more tests'
       }].reduce(pages, [{
         id: 0,
-        archived: false,
+        bookmarked: false,
         text: 'Sample page'
       }, {
         id: 1,
-        archived: false,
+        bookmarked: false,
         text: 'Write tests'
       }])
     ).toEqual([{
       text: 'Write more tests',
-      archived: false,
+      bookmarked: false,
       id: 2
     }, {
       text: 'Write tests',
-      archived: false,
+      bookmarked: false,
       id: 1
     }]);
   });

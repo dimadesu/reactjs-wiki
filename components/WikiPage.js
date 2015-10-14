@@ -24,7 +24,7 @@ class WikiPage extends Component {
   }
 
   render() {
-    const {page, archivePage, deletePage} = this.props;
+    const {page, bookmarkPage, deletePage} = this.props;
 
     let element;
     if (this.state.editing) {
@@ -41,8 +41,9 @@ class WikiPage extends Component {
           <input
             className="toggle"
             type="checkbox"
-            checked={page.archived}
-            onChange={() => archivePage(page.id)}
+            checked={page.bookmarked}
+            onChange={() => bookmarkPage(page.id)}
+            title="Bookmark"
           />
           <label onDoubleClick={this.handleDoubleClick.bind(this)}>
             {page.text}
@@ -50,6 +51,7 @@ class WikiPage extends Component {
           <button
             className="destroy"
             onClick={() => deletePage(page.id)}
+            title="Delete"
             />
         </div>
       );
@@ -57,7 +59,7 @@ class WikiPage extends Component {
 
     return (
       <li className={classnames({
-        archived: page.archived,
+        bookmarked: page.bookmarked,
         editing: this.state.editing
       })}>
         {element}
@@ -70,7 +72,7 @@ WikiPage.propTypes = {
   page: PropTypes.object.isRequired,
   editPage: PropTypes.func.isRequired,
   deletePage: PropTypes.func.isRequired,
-  archivePage: PropTypes.func.isRequired
+  bookmarkPage: PropTypes.func.isRequired
 };
 
 export default WikiPage;
