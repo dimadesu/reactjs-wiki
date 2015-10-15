@@ -33,36 +33,63 @@ export function loadRandomPages() {
   }
 }
 
-export function returnPageDetails(id, categories) {
+export function returnPageDetails(id, categories, image) {
   return {
     type: types.LOAD_PAGE_DETAILS,
     id,
-    categories
+    categories,
+    image
   };
 }
 
 export function loadPageDetails(pageId) {
   return (dispatch) => {
-    superagent
-      .get('https://en.wikipedia.org/w/api.php')
-      .query({
-        format: 'json',
-        action: 'query',
-        prop: 'categories',
-        pageids: pageId
-      })
-      .use(superagentJsonp)
-      .end((err, resp)=> {
-        const categories = resp.body.query.pages[pageId].categories;
-        const result = categories ?
-          categories.map((item, index) => {
-            return {
-              title: item.title
-            };
-          }) :
-          null;
-        return dispatch(returnPageDetails(pageId, result));
-      });
+    var promiseCategories = new Promise ((resolve) => {
+      superagent
+        .get('https://en.wikipedia.org/w/api.php')
+        .query({
+          format: 'json',
+          action: 'query',
+          prop: 'categories',
+          pageids: pageId
+        })
+        .use(superagentJsonp)
+        .end((err, resp)=> {
+          const categories = resp.body.query.pages[pageId].categories;
+          const categoriesReceived = categories ?
+            categories.map((item, index) => {
+              return {
+                title: item.title
+              };
+            }) :
+            null;
+          resolve(categoriesReceived);
+          return dispatch(returnPageDetails(pageId, categoriesReceived));
+        });
+    });
+
+    var promiseImage = new Promise ((resolve) => {
+      superagent
+        .get('https://en.wikipedia.org/w/api.php')
+        .query({
+          format: 'json',
+          action: 'query',
+          prop: 'pageimages',
+          piprop: 'thumbnail',
+          pageids: pageId
+        })
+        .use(superagentJsonp)
+        .end((err, resp)=> {
+          const image = resp.body.query.pages[pageId].thumbnail;
+          resolve(image);
+          return dispatch(returnPageDetails(pageId, image));
+        });
+    });
+
+    Promise.all([promiseCategories, promiseImage])
+      .then(values => dispatch(
+        returnPageDetails(pageId, values[0], values[1])
+      ));
   }
 }
 

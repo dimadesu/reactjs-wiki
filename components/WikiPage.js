@@ -23,9 +23,13 @@ class WikiPage extends Component {
   render() {
     const {page, bookmarkPage, deletePage} = this.props;
 
-    const categories = !this.props.page.categories ?
-      'This page has no categories' :
-      this.props.page.categories.map(cat => <p>{cat.title}</p>);
+    const categories = this.props.page.categories ?
+      this.props.page.categories.map(cat => <p>{cat.title}</p>) :
+      'This page has no categories';
+
+    const image = this.props.page.image ?
+      (<img src={this.props.page.image.source} />) :
+      'This page has no image';
 
     const modal = (
       <Modal show={this.state.showModal} onHide={this.closeModal.bind(this)}>
@@ -33,6 +37,8 @@ class WikiPage extends Component {
           <Modal.Title>Page Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <h4>Image</h4>
+          {image}
           <h4>Categories</h4>
           {categories}
         </Modal.Body>

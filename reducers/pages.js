@@ -22,6 +22,7 @@ export default function pages(state = initialState, action) {
     return state.map(page => {
       if (page.id === action.id) {
         page.categories = action.categories;
+        page.image = action.image;
       }
       return page;
     });
