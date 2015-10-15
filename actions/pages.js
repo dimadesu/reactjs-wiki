@@ -48,7 +48,7 @@ export function loadPageDetails(pageId) {
               title: item.title
             };
           }) :
-          [];
+          null;
         return dispatch(returnPageDetails(pageId, result));
       });
   }

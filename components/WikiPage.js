@@ -23,7 +23,8 @@ class WikiPage extends Component {
   render() {
     const {page, bookmarkPage, deletePage} = this.props;
 
-    const categories = !this.props.page.categories ? null :
+    const categories = !this.props.page.categories ?
+      'This page has no categories' :
       this.props.page.categories.map(cat => <p>{cat.title}</p>);
 
     const modal = (
