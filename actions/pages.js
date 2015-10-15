@@ -64,7 +64,6 @@ export function loadPageDetails(pageId) {
             }) :
             null;
           resolve(categoriesReceived);
-          return dispatch(returnPageDetails(pageId, categoriesReceived));
         });
     });
 
@@ -82,7 +81,6 @@ export function loadPageDetails(pageId) {
         .end((err, resp)=> {
           const image = resp.body.query.pages[pageId].thumbnail;
           resolve(image);
-          return dispatch(returnPageDetails(pageId, image));
         });
     });
 

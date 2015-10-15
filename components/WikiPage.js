@@ -24,7 +24,7 @@ class WikiPage extends Component {
     const {page, bookmarkPage, deletePage} = this.props;
 
     const categories = this.props.page.categories ?
-      this.props.page.categories.map(cat => <p>{cat.title}</p>) :
+      this.props.page.categories.map((cat, index) => <p key={index}>{cat.title}</p>) :
       'This page has no categories';
 
     const image = this.props.page.image ?
