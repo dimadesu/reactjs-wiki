@@ -12,7 +12,13 @@ export function returnRandomPages(data) {
 export function loadRandomPages() {
   return (dispatch) => {
     superagent
-      .get('https://en.wikipedia.org/w/api.php?action=query&list=random&format=json&rnlimit=10')
+      .get('https://en.wikipedia.org/w/api.php')
+      .query({
+        format: 'json',
+        action: 'query',
+        list: 'random',
+        rnlimit: 10
+      })
       .use(superagentJsonp)
       .end((err, resp)=> {
         const result = resp.body.query.random.map((item, index) => {
@@ -38,7 +44,13 @@ export function returnPageDetails(id, categories) {
 export function loadPageDetails(pageId) {
   return (dispatch) => {
     superagent
-      .get('https://en.wikipedia.org/w/api.php?action=query&prop=categories&format=json&pageids=' + pageId)
+      .get('https://en.wikipedia.org/w/api.php')
+      .query({
+        format: 'json',
+        action: 'query',
+        prop: 'categories',
+        pageids: pageId
+      })
       .use(superagentJsonp)
       .end((err, resp)=> {
         const categories = resp.body.query.pages[pageId].categories;
