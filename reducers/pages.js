@@ -6,11 +6,11 @@ import {
   EMPTY_BOOKMARKS
 } from '../constants/ActionTypes';
 
-const initialState = [{
-  text: 'Sample page',
-  bookmarked: false,
-  id: 0
-}];
+const storedBookmarks = window.localStorage.bookmarked != null ?
+  window.JSON.parse(window.localStorage.bookmarked) :
+  null;
+
+const initialState = storedBookmarks || [];
 
 export default function pages(state = initialState, action) {
   switch (action.type) {
@@ -21,8 +21,11 @@ export default function pages(state = initialState, action) {
     return state.filter(page => {
       if (page.id !== action.id) {
         if (page.bookmarked) {
-          window.localStorage.bookmarked = localStorage.bookmarked
-            .filter(page => page.id !== action.id);
+          window.localStorage.bookmarked = window.JSON.stringify(
+            window.JSON.parse(
+              window.localStorage.bookmarked
+            ).filter(page => page.id !== action.id)
+          );
         }
         return true;
       }
@@ -35,8 +38,9 @@ export default function pages(state = initialState, action) {
         Object.assign({}, page, { bookmarked: !page.bookmarked }) :
         page
     );
-    console.log(newState);
-    window.localStorage.bookmarked = newState.filter(page => page.bookmarked !== false);
+    window.localStorage.bookmarked = window.JSON.stringify(
+      newState.filter(page => page.bookmarked !== false)
+    );
     return newState;
 
   case EMPTY_BOOKMARKS:
