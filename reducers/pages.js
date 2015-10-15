@@ -2,9 +2,7 @@ import {
   LOAD_RANDOM_PAGES,
   ADD_PAGE,
   DELETE_PAGE,
-  EDIT_PAGE,
   BOOKMARK_PAGE,
-  BOOKMARK_ALL,
   EMPTY_BOOKMARKS
 } from '../constants/ActionTypes';
 
@@ -20,31 +18,29 @@ export default function pages(state = initialState, action) {
     return [...action.data, ...state];
 
   case DELETE_PAGE:
-    return state.filter(page =>
-      page.id !== action.id
-    );
-
-  case EDIT_PAGE:
-    return state.map(page =>
-      page.id === action.id ?
-        Object.assign({}, page, { text: action.text }) :
-        page
-    );
+    return state.filter(page => {
+      if (page.id !== action.id) {
+        if (page.bookmarked) {
+          window.localStorage.bookmarked = localStorage.bookmarked
+            .filter(page => page.id !== action.id);
+        }
+        return true;
+      }
+      return false;
+    });
 
   case BOOKMARK_PAGE:
-    return state.map(page =>
+    const newState = state.map(page =>
       page.id === action.id ?
         Object.assign({}, page, { bookmarked: !page.bookmarked }) :
         page
     );
-
-  case BOOKMARK_ALL:
-    const areAllMarked = state.every(page => page.bookmarked);
-    return state.map(page => Object.assign({}, page, {
-      bookmarked: !areAllMarked
-    }));
+    console.log(newState);
+    window.localStorage.bookmarked = newState.filter(page => page.bookmarked !== false);
+    return newState;
 
   case EMPTY_BOOKMARKS:
+    window.localStorage.removeItem('bookmarked');
     return state.filter(page => page.bookmarked === false);
 
   default:

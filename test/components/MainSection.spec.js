@@ -65,13 +65,6 @@ describe('components', () => {
         const [toggle] = output.props.children;
         expect(toggle.props.checked).toBe(true);
       });
-
-      /*it('should call bookmarkAll on change', () => {
-        const { output, props } = setup();
-        const [toggle] = output.props.children;
-        toggle.props.onChange({});
-        expect(props.actions.bookmarkAll).toHaveBeenCalled();
-      });*/
     });
 
     describe('footer', () => {

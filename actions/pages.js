@@ -41,12 +41,6 @@ export function bookmarkPage(id) {
   };
 }
 
-export function bookmarkAll() {
-  return {
-    type: types.BOOKMARK_ALL
-  };
-}
-
 export function emptyBookmarks() {
   return {
     type: types.EMPTY_BOOKMARKS

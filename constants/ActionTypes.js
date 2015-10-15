@@ -1,5 +1,4 @@
 export const LOAD_RANDOM_PAGES = 'LOAD_RANDOM_PAGES';
 export const DELETE_PAGE = 'DELETE_PAGE';
 export const BOOKMARK_PAGE = 'BOOKMARK_PAGE';
-export const BOOKMARK_ALL = 'BOOKMARK_ALL';
 export const EMPTY_BOOKMARKS = 'EMPTY_BOOKMARKS';

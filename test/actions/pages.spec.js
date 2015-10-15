@@ -17,12 +17,6 @@ describe('page actions', () => {
     });
   });
 
-  it('bookmarkAll should create BOOKMARK_ALL action', () => {
-    expect(actions.bookmarkAll()).toEqual({
-      type: types.BOOKMARK_ALL
-    });
-  });
-
   it('emptyBookmarks should create EMPTY_BOOKMARKS action', () => {
     expect(actions.emptyBookmarks('Sample page')).toEqual({
       type: types.EMPTY_BOOKMARKS

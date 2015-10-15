@@ -59,53 +59,6 @@ describe('pages reducer', () => {
     }]);
   });
 
-  it('should handle BOOKMARK_ALL', () => {
-    expect(
-      pages([{
-        text: 'Run the tests',
-        bookmarked: true,
-        id: 1
-      }, {
-        text: 'Sample page',
-        bookmarked: false,
-        id: 0
-      }], {
-        type: types.BOOKMARK_ALL
-      })
-    ).toEqual([{
-      text: 'Run the tests',
-      bookmarked: true,
-      id: 1
-    }, {
-      text: 'Sample page',
-      bookmarked: true,
-      id: 0
-    }]);
-
-    // Unmark if all pages are currently bookmarked
-    expect(
-      pages([{
-        text: 'Run the tests',
-        bookmarked: true,
-        id: 1
-      }, {
-        text: 'Sample page',
-        bookmarked: true,
-        id: 0
-      }], {
-        type: types.BOOKMARK_ALL
-      })
-    ).toEqual([{
-      text: 'Run the tests',
-      bookmarked: false,
-      id: 1
-    }, {
-      text: 'Sample page',
-      bookmarked: false,
-      id: 0
-    }]);
-  });
-
   it('should handle EMPTY_BOOKMARKS', () => {
     expect(
       pages([{
