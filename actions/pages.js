@@ -2,6 +2,9 @@ import superagent from 'superagent';
 import superagentJsonp from 'superagent-jsonp';
 import * as types from '../constants/ActionTypes';
 
+// TODO: Move to constants folder
+const API_BASE = 'https://en.wikipedia.org/w/api.php';
+
 export function returnRandomPages(data) {
   return {
     type: types.LOAD_RANDOM_PAGES,
@@ -12,7 +15,7 @@ export function returnRandomPages(data) {
 export function loadRandomPages() {
   return (dispatch) => {
     superagent
-      .get('https://en.wikipedia.org/w/api.php')
+      .get(API_BASE)
       .query({
         format: 'json',
         action: 'query',
@@ -46,7 +49,7 @@ export function loadPageDetails(pageId) {
   return (dispatch) => {
     var promiseCategories = new Promise ((resolve) => {
       superagent
-        .get('https://en.wikipedia.org/w/api.php')
+        .get(API_BASE)
         .query({
           format: 'json',
           action: 'query',
@@ -69,7 +72,7 @@ export function loadPageDetails(pageId) {
 
     var promiseImage = new Promise ((resolve) => {
       superagent
-        .get('https://en.wikipedia.org/w/api.php')
+        .get(API_BASE)
         .query({
           format: 'json',
           action: 'query',

@@ -1,7 +1,7 @@
 {
   "name": "reactjs-wiki",
   "version": "0.1.0",
-  "description": "",
+  "description": "Single-page app utilizing Webpack, React.js, Redux, ES6, WikiMedia API",
   "scripts": {
     "start": "node server.js",
     "test:unix": "NODE_ENV=test mocha --recursive --compilers js:babel-core/register",

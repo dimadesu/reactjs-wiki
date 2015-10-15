@@ -34,7 +34,7 @@ class WikiPage extends Component {
     const modal = (
       <Modal show={this.state.showModal} onHide={this.closeModal.bind(this)}>
         <Modal.Header closeButton>
-          <Modal.Title>Page Details</Modal.Title>
+          <Modal.Title>{this.props.page.text}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Image</h4>
@@ -57,11 +57,9 @@ class WikiPage extends Component {
           onChange={() => bookmarkPage(page.id)}
           title="Bookmark"
           />
-        <label
-          onClick={this.openModal.bind(this)}
-        >
+        <a onClick={this.openModal.bind(this)}>
           {page.text}
-        </label>
+        </a>
         <button
           className="destroy"
           onClick={() => deletePage(page.id)}
