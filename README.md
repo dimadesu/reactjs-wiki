@@ -9,18 +9,18 @@ The goal is to bookmark or delete all the pages, after that new pages will be lo
 Bookmarked pages are saved to local storage.
 
 ## Starting app
-- 'npm i'
-- 'npm start'
+- `npm i`
+- `npm start`
 
 ## Running tests
 
 ### Unix
 
-'npm run test:unix'
+`npm run test:unix`
 
 ### Windows
 
-'npm run test:win'
+`npm run test:win`
 
 ## Improvement ideas
 

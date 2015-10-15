@@ -16,7 +16,7 @@ const FILTER_TITLES = {
 };
 
 class Footer extends Component {
-  renderTodoCount() {
+  renderNotBookmarkedCount() {
     const { notBookmarkedCount } = this.props;
     const itemWord = notBookmarkedCount === 1 ? 'item' : 'items';
 
@@ -63,7 +63,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className="footer">
-        {this.renderTodoCount()}
+        {this.renderNotBookmarkedCount()}
         <ul className="filters">
           {[SHOW_ALL, SHOW_NOT_BOOKMARKED, SHOW_BOOKMARKED].map(filter =>
             <li key={filter}>

@@ -56,7 +56,7 @@ class MainSection extends Component {
     const { pages, actions } = this.props;
     const { filter } = this.state;
 
-    const filteredTodos = pages.filter(PAGE_FILTERS[filter]);
+    const filteredPages = pages.filter(PAGE_FILTERS[filter]);
     const bookmarkedCount = pages.reduce((count, page) =>
       page.bookmarked ? count + 1 : count,
       0
@@ -65,7 +65,7 @@ class MainSection extends Component {
     return (
       <section className="main">
         <ul className="page-list">
-          {filteredTodos.map(page =>
+          {filteredPages.map(page =>
             <WikiPage
               key={page.id}
               page={page}

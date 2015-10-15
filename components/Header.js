@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <header className="header">
-        <h1>WikiPages</h1>
+        <h1>WikiMedia Pages</h1>
       </header>
     );
   }
