@@ -16,21 +16,24 @@ class WikiPage extends Component {
   }
 
   openModal() {
-    console.log(123);
+    this.props.loadPageDetails(this.props.page.id);
     this.setState({ showModal: true });
   }
 
   render() {
     const {page, bookmarkPage, deletePage} = this.props;
 
+    const categories = !this.props.page.categories ? null :
+      this.props.page.categories.map(cat => <p>{cat.title}</p>);
+
     const modal = (
       <Modal show={this.state.showModal} onHide={this.closeModal.bind(this)}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Page Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Text in a modal</h4>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+          <h4>Categories</h4>
+          {categories}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.closeModal.bind(this)}>Close</Button>

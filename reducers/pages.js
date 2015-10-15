@@ -1,5 +1,6 @@
 import {
   LOAD_RANDOM_PAGES,
+  LOAD_PAGE_DETAILS,
   ADD_PAGE,
   DELETE_PAGE,
   BOOKMARK_PAGE,
@@ -16,6 +17,14 @@ export default function pages(state = initialState, action) {
   switch (action.type) {
   case LOAD_RANDOM_PAGES:
     return [...action.data, ...state];
+
+  case LOAD_PAGE_DETAILS:
+    return state.map(page => {
+      if (page.id === action.id) {
+        page.categories = action.categories;
+      }
+      return page;
+    });
 
   case DELETE_PAGE:
     return state.filter(page => {

@@ -27,6 +27,33 @@ export function loadRandomPages() {
   }
 }
 
+export function returnPageDetails(id, categories) {
+  return {
+    type: types.LOAD_PAGE_DETAILS,
+    id,
+    categories
+  };
+}
+
+export function loadPageDetails(pageId) {
+  return (dispatch) => {
+    superagent
+      .get('https://en.wikipedia.org/w/api.php?action=query&prop=categories&format=json&pageids=' + pageId)
+      .use(superagentJsonp)
+      .end((err, resp)=> {
+        const categories = resp.body.query.pages[pageId].categories;
+        const result = categories ?
+          categories.map((item, index) => {
+            return {
+              title: item.title
+            };
+          }) :
+          [];
+        return dispatch(returnPageDetails(pageId, result));
+      });
+  }
+}
+
 export function deletePage(id) {
   return {
     type: types.DELETE_PAGE,
