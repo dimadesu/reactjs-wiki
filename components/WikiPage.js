@@ -1,13 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import Modal from 'react-bootstrap/lib/Modal';
+import Button from 'react-bootstrap/lib/Button';
 
 class WikiPage extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      showModal: false
+    }
+  }
+
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+
+  openModal() {
+    console.log(123);
+    this.setState({ showModal: true });
   }
 
   render() {
     const {page, bookmarkPage, deletePage} = this.props;
+
+    const modal = (
+      <Modal show={this.state.showModal} onHide={this.closeModal.bind(this)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Text in a modal</h4>
+          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.closeModal.bind(this)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+    );
 
     const element = (
       <div className="view">
@@ -18,7 +47,9 @@ class WikiPage extends Component {
           onChange={() => bookmarkPage(page.id)}
           title="Bookmark"
           />
-        <label>
+        <label
+          onClick={this.openModal.bind(this)}
+        >
           {page.text}
         </label>
         <button
@@ -34,6 +65,7 @@ class WikiPage extends Component {
         bookmarked: page.bookmarked
       })}>
         {element}
+        {modal}
       </li>
     );
   }
