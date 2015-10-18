@@ -63,5 +63,4 @@ When all pages are bookmarked or deleted a new set of random pages will be loade
 ## Tested
 
 - Mac OS X Yosemite v10.10.4, 64-bit, Google Chrome 45, Node.js v4.1.0
-- Windows 7, 64-bit, Google Chrome
-
+- Windows 7, 64-bit, Google Chrome 46, Nove.js v4.2.1
