@@ -117,27 +117,6 @@ input[type="checkbox"] {
 	border-top: 1px solid #e6e6e6;
 }
 
-.toggle-all {
-	position: absolute;
-	top: -55px;
-	left: -12px;
-	width: 60px;
-	height: 34px;
-	text-align: center;
-	border: none; /* Mobile Safari */
-}
-
-.toggle-all:before {
-	content: '❯';
-	font-size: 22px;
-	color: #e6e6e6;
-	padding: 10px 27px 10px 27px;
-}
-
-.toggle-all:checked:before {
-	color: #737373;
-}
-
 .page-list {
 	margin: 0;
 	padding: 0;
@@ -163,18 +142,17 @@ input[type="checkbox"] {
 	top: 0;
 	bottom: 0;
 	margin: auto 0;
+	padding: 5px 0 0 17px;
 	border: none; /* Mobile Safari */
 	-webkit-appearance: none;
 	appearance: none;
 	cursor: pointer;
+	outline: none;
+	color: lightgray;
 }
 
-.page-list li .toggle:after {
-	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#cccccc" stroke-width="3"/></svg>');
-}
-
-.page-list li .toggle:checked:after {
-	content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+.page-list li.bookmarked .toggle {
+	color: orange;
 }
 
 .page-list li a {
@@ -189,8 +167,7 @@ input[type="checkbox"] {
 }
 
 .page-list li.bookmarked a {
-	color: #d9d9d9;
-	text-decoration: line-through;
+	color: orange;
 }
 
 .page-list li .destroy {
@@ -328,20 +305,12 @@ html .clear-bookmarked:active {
 	Can't use it globally since it destroys checkboxes in Firefox
 */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	.toggle-all,
 	.page-list li .toggle {
 		background: none;
 	}
 
 	.page-list li .toggle {
 		height: 40px;
-	}
-
-	.toggle-all {
-		-webkit-transform: rotate(90deg);
-		transform: rotate(90deg);
-		-webkit-appearance: none;
-		appearance: none;
 	}
 }
 

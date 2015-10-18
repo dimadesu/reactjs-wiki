@@ -1,10 +1,10 @@
 # reactjs-wiki
 
-Single-page app utilizing Webpack, React.js, Redux, ES6, WikiMedia API.
+Single-page app utilizing Webpack, React.js, Redux, ES6 and WikiMedia API.
 
 10 random pages are loaded on the initial load.
 
-User can delete or bookmark page inside the app.
+User can delete or bookmark a page inside the app.
 
 When all pages are bookmarked or deleted a new set of random pages will be loaded and rendered on top of the list.
 
@@ -46,7 +46,7 @@ When all pages are bookmarked or deleted a new set of random pages will be loade
   - Display loading icons while fetching data
   - Organize bookmarks in folders
 - UI
-  - Replace checkbox with a star icon
+  - ~~Replace checkbox with a star icon~~
   - Support for different resolutions (responsiveness with media queries)
 - Fix tests
 - Optimizations

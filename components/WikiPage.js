@@ -31,6 +31,12 @@ class WikiPage extends Component {
       (<img src={this.props.page.image.source} />) :
       'This page has no image';
 
+    const toggleClass = classnames(
+      'toggle',
+      'glyphicon',
+      (page.bookmarked ? 'glyphicon-star' : 'glyphicon-star-empty')
+    );
+
     const modal = (
       <Modal show={this.state.showModal} onHide={this.closeModal.bind(this)}>
         <Modal.Header closeButton>
@@ -51,7 +57,7 @@ class WikiPage extends Component {
     const element = (
       <div className="view">
         <input
-          className="toggle"
+          className={toggleClass}
           type="checkbox"
           checked={page.bookmarked}
           onChange={() => bookmarkPage(page.id)}
